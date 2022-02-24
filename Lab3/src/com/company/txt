@@ -1,0 +1,39 @@
+ public String getFio() {
+        return fio;
+    }
+
+    public String getFaculty() {
+        return faculty;
+    }
+
+    public String getBirth_date() {
+        return birth_date;
+    }
+
+    public int getLibrary_card_number() {
+        return library_card_number;
+    }
+
+    public String getPhone_number() {
+        return phone_number;
+    }
+
+    public void setBirth_date(String birth_date) {
+        this.birth_date = birth_date;
+    }
+
+    public void setFio(String fio) {
+        this.fio = fio;
+    }
+
+    public void setFaculty(String faculty) {
+        this.faculty = faculty;
+    }
+
+    public void setLibrary_card_number(int library_card_number) {
+        this.library_card_number = library_card_number;
+    }
+
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
+    }
