@@ -10,9 +10,9 @@ public class Cat extends Animal{
         this.meow = meow;
     }
 
-    public Cat(String food, String location, String meow) {
-        super(food, location);
-        this.meow = meow;
+    public Cat(String name, String food, String location) {
+        super(name, food, location, "Cat");
+        this.meow = "MEOOOOW";
     }
 
     @Override

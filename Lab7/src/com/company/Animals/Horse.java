@@ -18,9 +18,9 @@ public class Horse extends Animal {
         this.br = br;
     }
 
-    public Horse(String food, String location, String br) {
-        super(food, location);
-        this.br = br;
+    public Horse(String name, String food, String location) {
+        super(name, food, location, "Horse");
+        this.br = "BRRRR";
     }
 
     @Override

@@ -2,6 +2,15 @@ package com.company.InternetShop;
 
 public class Product {
     int price, rating;
+    String product_name;
+
+    public Product() {}
+
+    public Product(int price, int rating, String product_name) {
+        this.price = price;
+        this.rating = rating;
+        this.product_name = product_name;
+    }
 
     public int getPrice() {
         return price;
@@ -23,19 +32,8 @@ public class Product {
         return product_name;
     }
 
+    public String getProduct() { return "price " + price + " rating " +rating + " prodcut name " + product_name;}
     public void setProduct_name(String product_name) {
         this.product_name = product_name;
     }
-
-    String product_name;
-
-    public Product() {
-    }
-
-    public Product(int price, int rating, String product_name) {
-        this.price = price;
-        this.rating = rating;
-        this.product_name = product_name;
-    }
-
 }

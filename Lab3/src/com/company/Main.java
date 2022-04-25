@@ -22,13 +22,12 @@ public class Main {
         LibraryReaders[] library_readers = new LibraryReaders[amount];
 
         for (int i = 0; i < amount; ++i) {
-            /// почему...
             library_readers[i] = new LibraryReaders();
-            library_readers[i]  .setFio("Evgenii E. A.");
+            library_readers[i].setFio("Evgenii E. A.");
             library_readers[i].takeBook("Э", "Котлован");
             library_readers[i].takeBook(new Book("A", "B"),
-                                        new Book("C", "D"),
-                                        new Book("E", "F"));
+                    new Book("C", "D"),
+                    new Book("E", "F"));
         }
 
         System.out.println("OK!");

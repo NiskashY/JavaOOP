@@ -39,6 +39,6 @@ public class Circle extends Shape{
 
     @Override
     public void draw() {
-        System.out.println("Draw Circle...\t x = " + x + " y = " + y);
+        System.out.println("Draw Circle...\t\t x = " + x + " y = " + y);
     }
 }

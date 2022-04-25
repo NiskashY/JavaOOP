@@ -1,19 +1,29 @@
 package com.company.Animals;
 
 public class Animal {
-    String food, location;
+    String name, food, location, type;
 
-    public Animal(String food, String location) {
+    public Animal(String name, String food, String location, String type) {
+        this.name = name;
         this.food = food;
         this.location = location;
+        this.type = type;
     }
 
     public String getFood() {
         return food;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setFood(String food) {
         this.food = food;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public String getLocation() {

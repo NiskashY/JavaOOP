@@ -1,5 +1,7 @@
 package com.company.InternetShop;
 
+import java.util.ArrayList;
+
 public class User extends Basket {
     String login, password;
     Basket basket = new Basket();
@@ -37,14 +39,14 @@ public class User extends Basket {
         this.basket = basket;
     }
 
-    public User(Product[] purchased_items, String login, String password, Basket basket) {
+    public User(ArrayList<Product> purchased_items, String login, String password, Basket basket) {
         super(purchased_items);
         this.login = login;
         this.password = password;
         this.basket = basket;
     }
 
-    public User(int price, int rating, String product_name, Product[] purchased_items, String login, String password, Basket basket) {
+    public User(int price, int rating, String product_name, ArrayList<Product> purchased_items, String login, String password, Basket basket) {
         super(price, rating, product_name, purchased_items);
         this.login = login;
         this.password = password;

@@ -18,9 +18,9 @@ public class Dog extends Animal {
         this.bark = bark;
     }
 
-    public Dog(String food, String location, String bark) {
-        super(food, location);
-        this.bark = bark;
+    public Dog(String name, String food, String location) {
+        super(name, food, location, "Dog");
+        this.bark = "WOOOF";
     }
 
     @Override

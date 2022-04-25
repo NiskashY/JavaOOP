@@ -6,8 +6,7 @@ public class ThirdClass extends FirstClass{
 
     @Override
     public String toString() {
-        FirstClass fs = new FirstClass();
-        return "Allowed " + /*fs.c +*/ fs.d;
+        return "Allowed " + c + d;
     }
 
 }

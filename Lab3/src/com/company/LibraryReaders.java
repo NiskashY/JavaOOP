@@ -1,6 +1,7 @@
 package com.company;
 
 public class LibraryReaders {
+
     private String fio, faculty, birth_date, phone_number;
     private int library_card_number;
 
@@ -27,6 +28,7 @@ public class LibraryReaders {
 
     public void takeBook(String... books_names) {
         System.out.print(fio + " взял: ");
+
         boolean first = true;
         for (String item : books_names) {
             if (!first) {
@@ -35,6 +37,7 @@ public class LibraryReaders {
             first = false;
             System.out.print(item);
         }
+
         System.out.println();
     }
 
@@ -116,5 +119,20 @@ public class LibraryReaders {
             System.out.print(item.book_title + "(автор - " + item.author + ")");
         }
         System.out.println();
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }

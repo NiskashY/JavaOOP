@@ -25,7 +25,8 @@ public class Lorry extends Car {
 
     public Lorry() {}
 
-    public String ToString() {
-        return "Carrying - " + carrying;
+    @Override
+    public String toString() {
+        return super.toString() + "\nCarrying - " + carrying;
     }
 }

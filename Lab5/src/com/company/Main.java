@@ -6,9 +6,9 @@ public class Main {
         // write your code here
 
         Student person1 = new Student("Петр", "Первый",
-                                    "1", 7);
+                                    "1", 10);
         Aspirant person2 = new Aspirant("Евгений", "Евген", "2",
-                                8, "Scince !");
+                10, "Scince !");
 
         Student person3 = new Aspirant("Даниил", "Дан", "3",
                 8, "ненене !");

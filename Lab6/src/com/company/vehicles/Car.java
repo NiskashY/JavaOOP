@@ -77,7 +77,7 @@ public class Car{
         System.out.println("Поворот налево");
     }
 
-    public String ToString() {
+    public String toString() {
         return ("Brand - " + brand + "\nCar class - " + car_class +
                 "\nWeight - " + weight + "\n" + driver.toString() +
                 "\n" + engine.toString());

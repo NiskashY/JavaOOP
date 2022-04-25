@@ -28,6 +28,6 @@ public class SportCar extends Car {
 
     @Override
     public String toString() {
-        return "Speed - " + speed;
+        return super.toString() + "\nSpeed - " + speed;
     }
 }

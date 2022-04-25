@@ -21,7 +21,6 @@ public class Aspirant extends Student {
     public Aspirant() {}
 
     @Override
-    public int getScholarship() {
-        return averageMark == 10 ? 200 : 180;
-    }
+    public int getScholarship() { return averageMark == 10 ? 200 : 180; }
+
 }
