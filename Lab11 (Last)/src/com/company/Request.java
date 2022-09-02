@@ -9,7 +9,7 @@ public class Request implements Serializable {
     private int leaseTerm; // срок аренды
     private boolean status; // заявка подверждена - да/нет
 
-    private String declineMessage;
+    private String declineMessage = "Car Approved";
 
     public String getDeclineMessage() {
         return declineMessage;

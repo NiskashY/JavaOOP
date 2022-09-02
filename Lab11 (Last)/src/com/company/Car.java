@@ -5,19 +5,19 @@ import java.util.Objects;
 
 public class Car implements Serializable {
     private String model;
-    private boolean isBroken;
+    private boolean isBooked;
 
     public Car () {
-        isBroken = false;
+        isBooked = false;
     }
 
     public Car(String model) {
         this.model = model;
     }
 
-    public Car(String model, boolean isBroken) {
+    public Car(String model, boolean isBooked) {
         this.model = model;
-        this.isBroken = isBroken;
+        this.isBooked = isBooked;
     }
 
     public String getModel() {
@@ -28,12 +28,12 @@ public class Car implements Serializable {
         this.model = model;
     }
 
-    public boolean isBroken() {
-        return isBroken;
+    public boolean isBooked() {
+        return isBooked;
     }
 
-    public void setBroken(boolean broken) {
-        isBroken = broken;
+    public void setBroken(boolean booked) {
+        isBooked = booked;
     }
 
     @Override
@@ -41,19 +41,16 @@ public class Car implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Car car = (Car) o;
-        return isBroken == car.isBroken && Objects.equals(model, car.model);
+        return isBooked == car.isBooked && Objects.equals(model, car.model);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(model, isBroken);
+        return Objects.hash(model, isBooked);
     }
 
     @Override
     public String toString() {
-        return "Car{" +
-                "model='" + model + '\'' +
-                ", isBroken=" + isBroken +
-                '}';
+        return "Car: model = '" + model + "', isBooked = " + isBooked;
     }
 }

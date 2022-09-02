@@ -2,8 +2,8 @@ package com.company;
 
 import java.io.*;
 import java.util.Random;
+import exceptions.InvalidPositionException;
 
-import static java.lang.System.exit;
 
 public class Main {
 
@@ -18,8 +18,10 @@ public class Main {
 
     public static void readAdminInfo() {
         try {
+            final String fileName = "admin.txt";
             ObjectInputStream objectInputStream = new ObjectInputStream(
-                    new FileInputStream("admin.txt"));
+                    new FileInputStream(fileName)
+            );
             admin = (Admin) objectInputStream.readObject();
             objectInputStream.close();
         } catch (IOException | ClassNotFoundException e) {
@@ -131,13 +133,19 @@ public class Main {
         var cars = admin.getCarList();
         int position = -1;
 
-        try {
-            while (position < 0 || position >= cars.size()) {
+        boolean isInputOk = false;
+        while (!isInputOk) {
+            try {
                 System.out.println("Enter position( [0;" + cars.size() + ") ) of car you want to book: ");
                 position = Integer.parseInt(reader.readLine());
+                if (!isPositionCorrect(position, 0, cars.size())) {
+                    throw new InvalidPositionException("Position out of bounds");
+                }
+                isInputOk = true;
+            } catch (IOException | InvalidPositionException e) {
+                System.out.println(e.getLocalizedMessage());
+                isInputOk = false;
             }
-        } catch (IOException e) {
-            System.out.println(e.toString());
         }
 
         return cars.get(position);
@@ -160,7 +168,6 @@ public class Main {
 
         return (new Client(name, number, email));
     }
-
     public static Request createRequest(BufferedReader reader) {
         var client = createClient(reader);
 
@@ -205,6 +212,9 @@ public class Main {
     public static void approveRequests(BufferedReader reader) {
         var requests = admin.getRequestList();
         for (var item : requests) {
+            if (item.isStatus()) {
+                continue;
+            }
 
             System.out.print("\nWant to approve?\n" + item.toString() + "\n1 - yes, else - no\nYour choice: ");
             int choice = 0;
@@ -218,7 +228,9 @@ public class Main {
                 item.setStatus(true);
                 Random random = new Random();
                 System.out.println(item.getClient().toString() + " pay " + (random.nextInt(90) + 10) + "$$$");
-                item.setDeclineMessage("");
+                // TODO: if car was already booked do not show this in menu
+                //       create admin method, that delete car from list and than
+                //       push changes into file
             } else {
                 System.out.println("Enter why you decline request:");
                 try {
@@ -229,5 +241,10 @@ public class Main {
                 }
             }
         }
+    }
+
+    public static boolean isPositionCorrect(final int pos, final int lowest_pos, final int highest_pos) {
+        // [lowest_pos; highest_pos);
+        return (pos >= lowest_pos && pos < highest_pos);
     }
 }
