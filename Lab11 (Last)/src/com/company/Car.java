@@ -32,7 +32,7 @@ public class Car implements Serializable {
         return isBooked;
     }
 
-    public void setBroken(boolean booked) {
+    public void setBooked(boolean booked) {
         isBooked = booked;
     }
 

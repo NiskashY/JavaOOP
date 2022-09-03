@@ -1,22 +1,45 @@
 package com.company;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import exceptions.InvalidPositionException;
+
+import static validation_and_output.output.*;
+import static validation_and_output.validation.*;
 
 
 public class Main {
 
-    public static void printMenu(String[] options){
-        for (String option : options){
-            System.out.println(option);
+    public static void main(String[] args) {
+        Admin admin = new Admin();
+        readAdminInfo(admin);
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String[] mods = {"1 - admin", "2 - client", "else - exit"};
+
+        boolean isNeedToExit = false;
+        while (!isNeedToExit) {
+            printMenu(mods);
+            int mode = 0;
+            try {
+                mode = Integer.parseInt(reader.readLine());
+            } catch (IOException | NumberFormatException e) {
+                System.out.println(GetNumberFormatMessage());
+            }
+
+            switch (mode) {
+                case 1 -> adminSection(reader, admin);
+                case 2-> clientSection(reader, admin);
+                default -> isNeedToExit = true;
+            }
         }
-        System.out.print("Choose your option : ");
+
+        writeAdminInfo(admin);
     }
 
-    static Admin admin;
-
-    public static void readAdminInfo() {
+    public static void readAdminInfo(Admin admin) {
         try {
             final String fileName = "admin.txt";
             ObjectInputStream objectInputStream = new ObjectInputStream(
@@ -30,7 +53,7 @@ public class Main {
         }
     }
 
-    public static void writeAdminInfo() {
+    public static void writeAdminInfo(Admin admin) {
         try {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(
                     new FileOutputStream("admin.txt"));
@@ -40,83 +63,78 @@ public class Main {
             System.out.println(e.toString());
         }
     }
-    public static void adminSection(BufferedReader reader) {
-        String[] options = {"0 - Approve Requests", "1 - Add car", "2 - Add Client", "3 - Add Request","4 - Print all cars", "5 - Print all Clients", "6 - Print all Requests", "7 - exit"};
+    public static void adminSection(BufferedReader reader, Admin admin) {
+        String[] options = {
+                "\n0 - Approve Requests", "1 - Add car",
+                "2 - Add Client", "3 - Add Request",
+                "4 - Print all cars", "5 - Print all Clients",
+                "6 - Print all Requests", "else - exit"
+        };
 
         int option = 0;
+        boolean isNeedToExit = false;
         try {
-            while (option != 7) {
+            while (!isNeedToExit) {
                 printMenu(options);
                 option = Integer.parseInt(reader.readLine());
 
                 try {
                     switch (option) {
-                        case 0 -> approveRequests(reader);
+                        case 0 -> approveRequests(reader, admin);
                         case 1 -> admin.addCar(createCar(reader));
                         case 2 -> admin.addClient(createClient(reader));
-                        case 3 -> admin.addRequest(createRequest(reader));
-                        case 4 -> printAllCars();
-                        case 5 -> printAllClients();
-                        case 6 -> printAllRequests();
+                        case 3 -> admin.addRequest(createRequest(reader, admin));
+                        case 4 -> printAllCars(admin, true);
+                        case 5 -> printAllClients(admin);
+                        case 6 -> printAllRequests(admin);
+                        default -> isNeedToExit = true;
                     }
                 } catch (RuntimeException e) {
-                    System.out.println(e.toString());
+                    System.out.println(e.getLocalizedMessage());
                 }
             }
-        } catch (IOException e) {
-            System.out.println("Please enter an integer value between 1 and " + options.length);
+        } catch (IOException | NumberFormatException e) {
+            System.out.println(GetNumberFormatMessage());
         }
     }
 
-    public static void clientSection(BufferedReader reader) {
-        String[] options = {"1 - Add Request","2 - Print all cars", "3 - exit"};
+    public static void clientSection(BufferedReader reader, Admin admin ) {
+        String[] options = {"\n1 - Add Request","2 - Print all cars", "else - exit"};
 
         int option = 0;
+        boolean isNeedToExit = false;
+
         try {
-            while (option != 3) {
+            while (!isNeedToExit) {
                 printMenu(options);
                 option = Integer.parseInt(reader.readLine());
 
                 try {
                     switch (option) {
-                        case 1 -> admin.addRequest(createRequest(reader));
-                        case 2 -> printAllCars();
+                        case 1 -> admin.addRequest(createRequest(reader, admin));
+                        case 2 -> printAllCars(admin, false);
+                        default -> isNeedToExit = true;
+                    }
+                } catch (RuntimeException e) {
+                    System.out.println(e.toString());
+                }
+            }{
+                printMenu(options);
+                option = Integer.parseInt(reader.readLine());
+
+                try {
+                    switch (option) {
+                        case 1 -> admin.addRequest(createRequest(reader, admin));
+                        case 2 -> printAllCars(admin, false);
+                        default -> isNeedToExit = true;
                     }
                 } catch (RuntimeException e) {
                     System.out.println(e.toString());
                 }
             }
-        } catch (IOException e) {
-            System.out.println("Please enter an integer value between 1 and " + options.length);
+        } catch (IOException | NumberFormatException e) {
+            System.out.println(GetNumberFormatMessage());
         }
-    }
-
-    public static void main(String[] args) {
-        // write your code here
-
-        readAdminInfo();
-
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String[] mods = {"1 - admin", "2 - client", "else - exit"};
-
-        while (true) {
-            printMenu(mods);
-            int mode = 0;
-            try {
-                mode = Integer.parseInt(reader.readLine());
-            } catch (IOException e) {
-                System.out.println(e.toString());
-            }
-            if (mode == 1) {
-                adminSection(reader);
-            } else if (mode == 2) {
-                clientSection(reader);
-            } else {
-                break;
-            }
-        }
-
-        writeAdminInfo();
     }
 
     public static Car createCar(BufferedReader reader) {
@@ -129,7 +147,7 @@ public class Main {
         }
         return new Car(model);
     }
-    public static Car chooseCar(BufferedReader reader) {
+    public static Car chooseCar(BufferedReader reader, Admin admin) {
         var cars = admin.getCarList();
         int position = -1;
 
@@ -168,14 +186,14 @@ public class Main {
 
         return (new Client(name, number, email));
     }
-    public static Request createRequest(BufferedReader reader) {
+    public static Request createRequest(BufferedReader reader, Admin admin) {
         var client = createClient(reader);
 
         if (admin.getCarList().size() == 0) {
             throw new RuntimeException("no cars in garage *_*");
         }
 
-        var car = chooseCar(reader);
+        var car = chooseCar(reader, admin);
         int leaseTerm = 0;
 
         try {
@@ -188,29 +206,9 @@ public class Main {
         return new Request(car, client, leaseTerm, false);
     }
 
-    public static void printAllCars() {
-        var cars = admin.getCarList();
-        for (var item : cars) {
-            System.out.println(item.toString());
-        }
-    }
-
-    public static void printAllClients() {
-        var clients = admin.getClientsList();
-        for (var item : clients) {
-            System.out.println(item.toString());
-        }
-    }
-
-    public static void printAllRequests() {
+    public static void approveRequests(BufferedReader reader, Admin admin) {
         var requests = admin.getRequestList();
-        for (var item : requests) {
-            System.out.println(item.toString());
-        }
-    }
 
-    public static void approveRequests(BufferedReader reader) {
-        var requests = admin.getRequestList();
         for (var item : requests) {
             if (item.isStatus()) {
                 continue;
@@ -231,6 +229,7 @@ public class Main {
                 // TODO: if car was already booked do not show this in menu
                 //       create admin method, that delete car from list and than
                 //       push changes into file
+                item.getCar().setBooked(true);
             } else {
                 System.out.println("Enter why you decline request:");
                 try {
@@ -243,8 +242,4 @@ public class Main {
         }
     }
 
-    public static boolean isPositionCorrect(final int pos, final int lowest_pos, final int highest_pos) {
-        // [lowest_pos; highest_pos);
-        return (pos >= lowest_pos && pos < highest_pos);
-    }
 }
