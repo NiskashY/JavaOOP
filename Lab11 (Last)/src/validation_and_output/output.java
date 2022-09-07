@@ -6,11 +6,10 @@ public class output {
 
     public static void printAllCars(Admin admin, boolean isAdmin) {
         var cars = admin.getCarList();
+        System.out.println("\nCARS:");
+
         boolean isFoundAtLeastOneCar = false;
         for (var item : cars) {
-            if (!isAdmin && !item.isBooked()) {
-                continue;
-            }
             isFoundAtLeastOneCar = true;
             System.out.println(item.toString());
         }
@@ -21,6 +20,7 @@ public class output {
                 System.out.println("No Available Cars!");
             }
         }
+
     }
 
     public static void printAllClients(Admin admin) {

@@ -1,8 +1,6 @@
 package com.company;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import exceptions.InvalidPositionException;
 
@@ -13,8 +11,7 @@ import static validation_and_output.validation.*;
 public class Main {
 
     public static void main(String[] args) {
-        Admin admin = new Admin();
-        readAdminInfo(admin);
+        Admin admin = readAdminInfo();
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String[] mods = {"1 - admin", "2 - client", "else - exit"};
@@ -27,11 +24,12 @@ public class Main {
                 mode = Integer.parseInt(reader.readLine());
             } catch (IOException | NumberFormatException e) {
                 System.out.println(GetNumberFormatMessage());
+                continue;
             }
 
             switch (mode) {
                 case 1 -> adminSection(reader, admin);
-                case 2-> clientSection(reader, admin);
+                case 2 -> clientSection(reader, admin);
                 default -> isNeedToExit = true;
             }
         }
@@ -39,11 +37,12 @@ public class Main {
         writeAdminInfo(admin);
     }
 
-    public static void readAdminInfo(Admin admin) {
+    public static Admin readAdminInfo() {
+        Admin admin = new Admin();
         try {
             final String fileName = "admin.txt";
             ObjectInputStream objectInputStream = new ObjectInputStream(
-                    new FileInputStream(fileName)
+                    new FileInputStream("admin.txt")
             );
             admin = (Admin) objectInputStream.readObject();
             objectInputStream.close();
@@ -51,6 +50,7 @@ public class Main {
             System.out.println(e.toString());
             admin = new Admin();
         }
+        return admin;
     }
 
     public static void writeAdminInfo(Admin admin) {
@@ -99,39 +99,29 @@ public class Main {
     }
 
     public static void clientSection(BufferedReader reader, Admin admin ) {
-        String[] options = {"\n1 - Add Request","2 - Print all cars", "else - exit"};
+        String[] options = {"1 - Add Request", "else - exit"};
 
         int option = 0;
         boolean isNeedToExit = false;
 
         try {
             while (!isNeedToExit) {
+                printAllCars(admin, false);
+
                 printMenu(options);
                 option = Integer.parseInt(reader.readLine());
 
                 try {
-                    switch (option) {
-                        case 1 -> admin.addRequest(createRequest(reader, admin));
-                        case 2 -> printAllCars(admin, false);
-                        default -> isNeedToExit = true;
-                    }
-                } catch (RuntimeException e) {
-                    System.out.println(e.toString());
-                }
-            }{
-                printMenu(options);
-                option = Integer.parseInt(reader.readLine());
-
-                try {
-                    switch (option) {
-                        case 1 -> admin.addRequest(createRequest(reader, admin));
-                        case 2 -> printAllCars(admin, false);
-                        default -> isNeedToExit = true;
+                    if (option == 1) {
+                        admin.addRequest(createRequest(reader, admin));
+                    } else {
+                        isNeedToExit = true;
                     }
                 } catch (RuntimeException e) {
                     System.out.println(e.toString());
                 }
             }
+
         } catch (IOException | NumberFormatException e) {
             System.out.println(GetNumberFormatMessage());
         }
@@ -158,6 +148,10 @@ public class Main {
                 position = Integer.parseInt(reader.readLine());
                 if (!isPositionCorrect(position, 0, cars.size())) {
                     throw new InvalidPositionException("Position out of bounds");
+                }
+
+                if (cars.get(position).isBooked()) {
+                    System.out.println("This car already booked! ReEnter!");
                 }
                 isInputOk = true;
             } catch (IOException | InvalidPositionException e) {
@@ -226,9 +220,6 @@ public class Main {
                 item.setStatus(true);
                 Random random = new Random();
                 System.out.println(item.getClient().toString() + " pay " + (random.nextInt(90) + 10) + "$$$");
-                // TODO: if car was already booked do not show this in menu
-                //       create admin method, that delete car from list and than
-                //       push changes into file
                 item.getCar().setBooked(true);
             } else {
                 System.out.println("Enter why you decline request:");
