@@ -152,6 +152,7 @@ public class Main {
 
                 if (cars.get(position).isBooked()) {
                     System.out.println("This car already booked! ReEnter!");
+                    continue;
                 }
                 isInputOk = true;
             } catch (IOException | InvalidPositionException e) {
@@ -180,6 +181,7 @@ public class Main {
 
         return (new Client(name, number, email));
     }
+
     public static Request createRequest(BufferedReader reader, Admin admin) {
         var client = createClient(reader);
 
@@ -232,5 +234,4 @@ public class Main {
             }
         }
     }
-
 }
