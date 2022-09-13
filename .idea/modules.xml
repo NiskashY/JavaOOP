@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/JavaFirstApp/JavaFirstApp.iml" filepath="$PROJECT_DIR$/JavaFirstApp/JavaFirstApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lab10/Lab10.iml" filepath="$PROJECT_DIR$/Lab10/Lab10.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lab11 (Last)/Lab11 (Last).iml" filepath="$PROJECT_DIR$/Lab11 (Last)/Lab11 (Last).iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lab3/Lab3.iml" filepath="$PROJECT_DIR$/Lab3/Lab3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lab5/Lab5.iml" filepath="$PROJECT_DIR$/Lab5/Lab5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lab6/Lab6.iml" filepath="$PROJECT_DIR$/Lab6/Lab6.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lab7/Lab7.iml" filepath="$PROJECT_DIR$/Lab7/Lab7.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lab8/Lab8.iml" filepath="$PROJECT_DIR$/Lab8/Lab8.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lab9/Lab9.iml" filepath="$PROJECT_DIR$/Lab9/Lab9.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lab1_2/lab1_2.iml" filepath="$PROJECT_DIR$/lab1_2/lab1_2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/oopp.iml" filepath="$PROJECT_DIR$/.idea/oopp.iml" />
+    </modules>
+  </component>
+</project>
