@@ -62,15 +62,24 @@ public class Date {
         int day = 0, month = 0, year = 0;
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        try {
-            System.out.println("Input day: ");
-            day = Integer.parseInt(reader.readLine());
-            System.out.println("Input month: ");
-            month = Integer.parseInt(reader.readLine());
-            System.out.println("Input year: ");
-            year = Integer.parseInt(reader.readLine());
-        } catch (IOException e) {
-            System.out.println("Oshibka tipa");
+        boolean isOk = false;
+        while (!isOk) {
+
+            try {
+                System.out.print("Input day: ");
+                day = Integer.parseInt(reader.readLine());
+                System.out.print("Input month: ");
+                month = Integer.parseInt(reader.readLine());
+                System.out.print("Input year: ");
+                year = Integer.parseInt(reader.readLine());
+                isOk = ((day > 0 && day < 32) && (month > 0 && month < 13));
+
+                if (!isOk) {
+                    System.out.println("Wrong date! ReEnter!");
+                }
+            } catch (IOException e) {
+                System.out.println("Oshibka tipa");
+            }
         }
 
         return new Date(day, month, year);

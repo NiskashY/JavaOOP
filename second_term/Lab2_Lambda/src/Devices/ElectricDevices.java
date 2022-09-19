@@ -10,6 +10,8 @@ abstract public class ElectricDevices {
     String modelName = "";
     Date releaseDate;
 
+    int power = 0;
+
     public ElectricDevices(boolean isPluggedIn, String modelName, Date date) {
         this.isPluggedIn = isPluggedIn;
         this.modelName = modelName;
@@ -43,8 +45,8 @@ abstract public class ElectricDevices {
     @Override
     public String toString() {
         return "Is Plugged: " + isPluggedIn +
-                " Model name = " + modelName +
-                " Release date =" + releaseDate;
+                ", Model name = " + modelName +
+                ", Release date = " + releaseDate;
     }
 
     static public boolean InputIsPlugged() {
@@ -72,5 +74,9 @@ abstract public class ElectricDevices {
             System.out.println("Oshibka tipa");
         }
         return modelName;
+    }
+
+    public int getPower() {
+        return power;
     }
 }

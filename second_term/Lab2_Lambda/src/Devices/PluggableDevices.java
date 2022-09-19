@@ -7,6 +7,7 @@ public class PluggableDevices extends ElectricDevices{
     public PluggableDevices(boolean isPluggedIn, String modelName, Date date, int requiredPower, int deviceSize) {
         super(isPluggedIn, modelName, date);
         this.requiredPower = requiredPower;
+        super.power += requiredPower;
         this.deviceSize = deviceSize;
     }
 
@@ -28,9 +29,9 @@ public class PluggableDevices extends ElectricDevices{
 
     @Override
     public String toString() {
-        return "Type: Portable " +super.toString() +
-                " Required power = " + requiredPower +
-                " Device Size = " + deviceSize;
+        return "Type: Portable, " + super.toString() +
+                ", Required power = " + requiredPower +
+                ", Device Size = " + deviceSize;
     }
 
 }

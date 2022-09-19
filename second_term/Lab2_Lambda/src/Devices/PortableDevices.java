@@ -1,9 +1,5 @@
 package Devices;
 
-enum ChargerType {
-    TypeC, mini_USB, lightning, Others
-}
-
 public class PortableDevices extends ElectricDevices {
     int capacity = 0;
     ChargerType chargerType = ChargerType.Others;
@@ -13,6 +9,7 @@ public class PortableDevices extends ElectricDevices {
     public PortableDevices(boolean isPluggedIn, String modelName, Date date, int capacity,
                            ChargerType chargerType, int percentage) {
         super(isPluggedIn, modelName, date);
+        super.power += capacity;
         this.capacity = capacity;
         this.chargerType = chargerType;
         this.percentage = percentage;
@@ -36,9 +33,9 @@ public class PortableDevices extends ElectricDevices {
 
     @Override
     public String toString() {
-        return "Type: Portable " + super.toString() +
-                " Capacity = " + capacity +
-                " ChargerType = " + chargerType +
-                " Percentage = " + percentage;
+        return "Type: Portable, " + super.toString() +
+                ", Capacity = " + capacity +
+                ", ChargerType = " + chargerType +
+                ", Percentage = " + percentage;
     }
 }
