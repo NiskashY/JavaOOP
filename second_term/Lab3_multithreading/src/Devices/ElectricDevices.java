@@ -1,11 +1,9 @@
 package Devices;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.Objects;
 
-abstract public class ElectricDevices {
+abstract public class ElectricDevices implements Serializable {
     boolean isPluggedIn = false;
     String modelName = "";
     Date releaseDate;
