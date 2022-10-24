@@ -1,10 +1,10 @@
-import javax.sound.midi.Soundbank;
-import java.io.File;
 import java.util.*;
 import java.util.stream.Stream;
 
+import static java.util.Collections.swap;
+
 class Task1 {
-    private static ArrayList<Integer> CreateRandomArray(final int array_length,
+    public static ArrayList<Integer> CreateRandomArray(final int array_length,
                                                         final int left_boarder,
                                                         final int right_boarder) {
         ArrayList<Integer> arrayList = new ArrayList<>();
@@ -17,7 +17,7 @@ class Task1 {
         return arrayList;
     }
 
-    static public void Solve() {
+    public static void Solve() {
         System.out.println("Task 1.");
         // a = 10; b = Descending; c = even numbers and zeroes
         int array_length = 10;
@@ -53,14 +53,46 @@ class Task1 {
 
 class Task2 {
     static public void Solve() {
+        System.out.println("Task 2.");
+        SubTask1();
+        System.out.println();
+        SubTask2();
+    }
+
+    static private void SubTask1() {
+        System.out.println("SubTask 1.");
+        int array_length = 10;
+        int left_boarder = 0, right_boarder = 31;
+        ArrayList<Integer> arrayList = Task1.CreateRandomArray(array_length, left_boarder, right_boarder);
+
+        Random rand = new Random();
+        final int X = rand.nextInt((right_boarder + 1) / 2);
+        System.out.println("Random pivot number X: " + X);
+
+        final String msg_before = "Init Array:   ", msg_after = "After divide: ";
+        System.out.println(msg_before + arrayList);
+
+        int pivot_index = 0;
+        for (int i = 0; i < array_length; ++i) {
+            if (arrayList.get(i) <= X) {
+                Collections.swap(arrayList, i, pivot_index++);
+            }
+        }
+
+        System.out.println(msg_after + arrayList);
+        System.out.println("Pivot index = " + pivot_index);
+    }
+
+    static private void SubTask2() {
 
     }
 }
 
 public class Main {
-
     // Variant = 20
     public static void main(String[] args) {
         Task1.Solve();
+        System.out.println();
+        Task2.Solve();
     }
 }
