@@ -1,6 +1,12 @@
+import jdk.jshell.spi.ExecutionControlProvider;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import java.util.TreeMap;
 
 public class Task2 {
     static public void Solve() {
@@ -35,6 +41,53 @@ public class Task2 {
     }
 
     static private void SubTask2() {
+        TreeMap<Integer, Integer> count = new TreeMap<>();
+        String[] menu = {"1 - add Integer",
+                "2 - remove Integer",
+                "3 - find nearest Element",
+                "else - exit"};
 
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        while (true) {
+            int choice = Choice.InputOptional(menu);
+            try {
+                switch (choice) {
+                    case 1 -> {
+                        // add
+                        final String input_msg = "Input integer: ";
+                        System.out.print(input_msg);
+                        int number = Integer.parseInt(reader.readLine());
+                        count.put(number, count.get(number) + 1);
+                    }
+                    case 2 -> {
+                        // remove
+                        final String input_msg = "Input integer: ";
+                        System.out.print(input_msg);
+                        int number = Integer.parseInt(reader.readLine());
+
+                        if (count.get(number) == 0) {
+                            String msg_not_found = "No such element in map";
+                            System.out.println(msg_not_found);
+                        } else {
+                            count.put(number, count.get(number) - 1);
+                            if (count.get(number) == 0) {
+
+                            }
+                        }
+                    }
+                    case 3 -> {
+                        // find
+                    }
+                    default -> {
+                        return;
+                    }
+                }
+            } catch (NumberFormatException e){
+                System.out.println("Wrong data type!");
+            }catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }
