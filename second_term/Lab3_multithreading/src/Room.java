@@ -49,53 +49,8 @@ class Choice {
     }
 }
 
-class Reader implements Runnable {
-    ArrayList<ElectricDevices> devicesList;
 
-    @Override
-    public void run() {
-        try {
-            final String kFileName = "devices.txt";
-            ObjectInputStream objectInputStream = new ObjectInputStream(
-                    new FileInputStream(kFileName)
-            );
-            devicesList = (ArrayList<ElectricDevices>) objectInputStream.readObject();
-            objectInputStream.close();
-        }
-        catch (IOException | ClassNotFoundException e) {
-            devicesList = new ArrayList<>();
-        }
-    }
-
-    public ArrayList<ElectricDevices> getDevicesList() {
-        return devicesList;
-    }
-}
-
-class Writer implements Runnable {
-    ArrayList<ElectricDevices> devicesList;
-
-    public Writer(ArrayList<ElectricDevices> electricDevices) {
-        devicesList = electricDevices;
-    }
-
-    @Override
-    public void run() {
-        try {
-            final String kFileName = "devices.txt";
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(
-                    new FileOutputStream(kFileName)
-            );
-            objectOutputStream.writeObject(devicesList);
-            objectOutputStream.close();
-        } catch (IOException e) {
-            System.out.println(e.toString());
-        }
-    }
-}
-
-
-class SortDevices implements Runnable {
+class SortDevices extends Thread {
     ArrayList<ElectricDevices> devices_local;
     boolean isAscending = true;
 
@@ -126,7 +81,7 @@ class SortDevices implements Runnable {
 
 
 public class Room {
-    ArrayList<ElectricDevices> devicesList;
+    private ArrayList<ElectricDevices> devicesList;
 
     public Room() {
         Reader reader = new Reader();
@@ -143,52 +98,6 @@ public class Room {
 
     public void RemoveDevice(int index) {
         devicesList.remove(index);
-    }
-
-    public void ShowAllDevices() {
-        if (devicesList.isEmpty()) {
-            System.out.println("no available devices!");
-        }
-        // vibor mejdy otsorchenimi i prosto
-        //          esli otsort - to vibor v kakyu storony
-
-        String[] menu = {"1 - Simple output",
-                "2 - Sort",
-                "else - back"
-        };
-
-//        Operationable show = Operationable();
-
-        Consumer<ArrayList<ElectricDevices>> ShowList = vec -> {
-            for (final var item : vec) {
-                System.out.print(item);
-                System.out.println(' ');
-            }
-            System.out.println();
-        };
-
-        for (var item : menu) {
-            System.out.println(item);
-        }
-
-        int choice = Choice.InputOptional(menu);
-        if (choice == 1) {
-            ShowList.accept(devicesList);
-        } else if (choice == 2) {
-            String[] menu_sort = {"1 - Ascending Sort",
-                    "2 - Descending Sort",
-                    "else - exit"
-            };
-
-            for (var item : menu_sort) {
-                System.out.println(item);
-            }
-
-            choice = Choice.InputOptional(menu_sort);
-            SortDevices sort = new SortDevices(devicesList, choice == 1);
-            sort.run();
-            ShowList.accept(sort.getDevices_local());
-        }
     }
 
     public ArrayList<ElectricDevices> getDevicesList() {
@@ -245,7 +154,6 @@ public class Room {
         return null;
     }
 
-
     public boolean PrintMenu() {
         String[] functions = {"1 - Add New Device", "2 - Remove Device",
                 "3 - Show All devices", "4 - Calculate Energy Cost", "else - exit"};
@@ -280,4 +188,66 @@ public class Room {
         }
         return true;
     }
+
+
+    private void waitThread(SortDevices sortThread) {
+        if (sortThread.isAlive()) {
+            System.out.println("Waiting for download");
+            do {
+                try {
+                    sortThread.join(500);
+                } catch (InterruptedException e) {
+                    System.out.println("Error!");
+                }
+            } while (sortThread.isAlive());
+            System.out.println();
+        }
+    }
+    public void ShowAllDevices() {
+        if (devicesList.isEmpty()) {
+            System.out.println("no available devices!");
+        }
+
+        String[] menu = {"1 - Simple output",
+                "2 - Sort",
+                "else - back"
+        };
+
+//        Operationable show = Operationable();
+
+        Consumer<ArrayList<ElectricDevices>> ShowList = vec -> {
+            for (final var item : vec) {
+                System.out.print(item);
+                System.out.println(' ');
+            }
+            System.out.println();
+        };
+
+        for (var item : menu) {
+            System.out.println(item);
+        }
+
+        int choice = Choice.InputOptional(menu);
+        if (choice == 1) {
+            ShowList.accept(devicesList);
+        } else if (choice == 2) {
+            String[] menu_sort = {"1 - Ascending Sort",
+                    "2 - Descending Sort",
+                    "else - exit"
+            };
+
+            for (var item : menu_sort) {
+                System.out.println(item);
+            }
+
+            choice = Choice.InputOptional(menu_sort);
+            SortDevices sortThread = new SortDevices(devicesList, choice == 1);
+            sortThread.start();
+
+            waitThread(sortThread);
+
+            ShowList.accept(sortThread.getDevices_local());
+        }
+    }
+
 }
