@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.LogInController">
+   <left>
+      <AnchorPane prefHeight="400.0" prefWidth="241.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="334.0" fitWidth="244.0" layoutX="1.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/osen_emae.jpg" />
+               </image>
+            </ImageView>
+            <Label layoutX="106.0" layoutY="72.0" text="Osen Emae" textOverrun="WORD_ELLIPSIS" />
+         </children>
+      </AnchorPane>
+   </left>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="39.0" layoutY="169.0" prefHeight="26.0" prefWidth="65.0" text="Username" />
+            <Label layoutX="38.0" layoutY="208.0" prefHeight="23.0" prefWidth="63.0" text="Password" />
+            <TextField fx:id="username" layoutX="136.0" layoutY="169.0" promptText="Input username" />
+            <PasswordField fx:id="password" layoutX="137.0" layoutY="207.0" promptText="Input password" />
+            <Button id="button" fx:id="login_button" layoutX="66.0" layoutY="288.0" mnemonicParsing="false" onAction="#onLoginButtonClicked" prefHeight="16.0" prefWidth="74.0" style="-fx-background-color: #ffc900;" stylesheets="@StyleCSS/button.css" text="Log In" />
+            <Button id="button" fx:id="signup_button" layoutX="203.0" layoutY="288.0" mnemonicParsing="false" onAction="#onSignUpButtonClicked" prefHeight="26.0" prefWidth="75.0" style="-fx-background-color: #ffc900;" stylesheets="@StyleCSS/button.css" text="Sign Up" />
+            <Label fx:id="login_error" layoutX="162.0" layoutY="122.0" textFill="RED" />
+            <Label layoutX="109.0" layoutY="84.0" text="МаГаЗиН СаДоВоДсТвА" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
