@@ -1,5 +1,8 @@
 package com.example.demo;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -34,10 +37,12 @@ public class Model {
         }
     }
 
-    public static void NotifyHard(int amount) {
+    public static void NotifyHard() {
+        ObservableList<Product> productObservableList = FXCollections.observableArrayList(Reader.ReadFromFile("products.txt"));
+
         for (var item : accounts) {
             if (!Objects.equals(item.getPassword(), "admin") && !Objects.equals(item.getUsername(), "admin")) {
-                item.setAmount_of_products_in_shop(amount);
+                item.setAmount_of_products_in_shop(productObservableList.size());
             }
         }
     }

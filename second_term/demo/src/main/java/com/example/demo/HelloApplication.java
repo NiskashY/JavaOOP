@@ -25,6 +25,7 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        Model.NotifyHard();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("loginPage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600,  480);
         stage.setScene(scene);
