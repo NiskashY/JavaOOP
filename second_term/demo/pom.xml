@@ -18,12 +18,20 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
+<<<<<<< HEAD
+            <version>19-ea+7</version>
+=======
             <version>11.0.2</version>
+>>>>>>> refs/remotes/origin/main
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
+<<<<<<< HEAD
+            <version>19-ea+7</version>
+=======
             <version>11.0.2</version>
+>>>>>>> refs/remotes/origin/main
         </dependency>
         <dependency>
             <groupId>org.controlsfx</groupId>
@@ -54,7 +62,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+<<<<<<< HEAD
+                <version>3.10.1</version>
+=======
                 <version>3.9.0</version>
+>>>>>>> refs/remotes/origin/main
                 <configuration>
                     <source>19</source>
                     <target>19</target>

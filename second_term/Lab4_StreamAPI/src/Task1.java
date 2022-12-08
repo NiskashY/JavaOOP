@@ -46,7 +46,7 @@ public class Task1 {
 
         // Output final state of array
         System.out.print(msg_after + "[");
-        mapped_stream_array.forEach((item) -> System.out.print(item.toString() + ", "));
+        mapped_stream_array.forEach((item) -> System.out.print(item + ", "));
         System.out.println("\b\b]"); // for deleting ', ' in the end of line above
     }
 }

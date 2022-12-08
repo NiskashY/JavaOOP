@@ -4,7 +4,7 @@ public class Main {
 
         boolean isNotExit = true;
         while (isNotExit) {
-            isNotExit &= room.PrintMenu();
+            isNotExit = room.PrintMenu();
             if (!isNotExit) {
                 System.out.println("\n\tBye!");
             }

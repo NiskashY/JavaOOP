@@ -11,4 +11,10 @@ public class HelloController {
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
+<<<<<<< HEAD
+
+    @FXML
+    protected void onSomeButtonClick() { welcomeText.setText("Some button cliclked");}
+=======
+>>>>>>> refs/remotes/origin/main
 }
